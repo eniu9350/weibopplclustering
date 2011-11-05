@@ -10,6 +10,6 @@ h: html page content
 ppls: parsed people
 n: count of people
 */
-int parse(htmlContent *h, ppl* ppls, int *n);
+ppllist* parse(htmlContent *h);
 
 #endif

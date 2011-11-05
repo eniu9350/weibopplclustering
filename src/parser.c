@@ -9,11 +9,10 @@
 
 #include <string.h>
 
-
-
-int parse(htmlContent *h, ppl* ppls, int *n)
+ppllist* parse(htmlContent *h)
 {
-	printf("content size= %d\n", strlen(h->content));
+//	printf("content size= %d\n", strlen(h->content));
+	ppllist* ppls;
 	regex_t reg;
 	//reg matches
 	regmatch_t regm[10];
@@ -23,8 +22,12 @@ int parse(htmlContent *h, ppl* ppls, int *n)
 	char* snow;
 	char tmp[100];
 	char* s0;
+	ppl
+	
 
-
+	ppls = createPpllist();
+	
+	
 	char pattern[100] = "\"key=apex_top&value=all\">([ \t\n\r]*)([^<\t\r\n]+)([ \t\n\r]*)</a>";
 	//char pattern[100] = "key=apex_top&value=all";
 
@@ -38,6 +41,9 @@ int parse(htmlContent *h, ppl* ppls, int *n)
 	ret = regexec(&reg, h->content, 10, regm, 0);
 	snow = s0 = h->content;
 	while(!ret){
+		printf("reg[0]so=%d,eo=%d", regm[0].rm_so,regm[0].rm_eo);	
+		
+		
 		//debug
 		memcpy(tmp, snow+regm[2].rm_so, regm[2].rm_eo-regm[2].rm_so);
 		tmp[regm[2].rm_eo-regm[2].rm_so]='\0';	
@@ -45,17 +51,13 @@ int parse(htmlContent *h, ppl* ppls, int *n)
 		printf("after#x=%d%d\n", tmp[10],tmp[11]);
 		printf("matched=(%s)\n", tmp);
 
+		
+
 		snow += regm[0].rm_eo ;
 
 		printf("offset=%d\n", snow-s0);
 		ret = regexec(&reg, snow, 10, regm, 0);
 		//break;
 	}
-
-	for(i=0; i<3; i++)
-	{
-		memcpy(group, h->content+regm[i].rm_so, regm[i].rm_so-regm[i].rm_eo);
-		group[regm[i].rm_so-regm[i].rm_eo] = '\0';
-		printf("group %d = %s", i, group);
-	}
+	printf("break\n");
 }

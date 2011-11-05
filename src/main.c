@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 {
 	char url[100] = "http://data.weibo.com/top/hot/famous";
 	htmlContent h;
-	ppl ppls[10];
+	ppl** ppls;
 	int nppls;
 
 	h.len=0;
