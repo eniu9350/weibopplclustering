@@ -1,0 +1,49 @@
+#include "wbpc.h"
+
+#include "ppl.h"
+
+#include "parser.h"
+
+#include <sys/types.h>
+#include <regex.h>
+
+
+
+int parse(htmlContent *h, ppl* ppls, int *n)
+{
+    regex_t reg;
+    //reg matches
+    regmatch_t regm[10];
+    char group[100];
+    int i;
+
+
+    char patter[100] = "\"key=apex_top&value=all\">(.*)</a>";
+
+    if( (regcomp(&reg, "", 0)) !=0 )
+    {
+        printf("could not compile regex");
+        exit(1);
+    }
+
+    if( (regexec(&reg, h->content, 0, regm, 0)) !=0)
+{
+    printf("parse error: no pattern found\n");
+        exit(1);
+    }
+
+    for(i=0; i<3; i++)
+{
+    memcpy(group, h->content+regm[i].rm_so, regm[i].rm_so-regm[i].rm_eo);
+	group[regm[i].rm_so-regm[i].rm_eo] = '\0';
+        printf("group %d = %s", i, group);
+    }
+
+
+
+
+
+
+
+
+}
