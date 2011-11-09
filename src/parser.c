@@ -22,8 +22,6 @@ ppllist* parse(htmlContent *h)
 	char* snow;
 	char tmp[100];
 	char* s0;
-	ppl
-	
 
 	ppls = createPpllist();
 	

@@ -15,6 +15,6 @@ int main(int argc, char* argv[])
 
 	crawl(url, &h);
 
-	parse(&h, ppls, &nppls);
+	ppls = parse(&h);
 
 }

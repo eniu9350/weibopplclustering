@@ -1,2 +1,2 @@
 main:
-	gcc -g parser.c crawler.c main.c -lcurl -o wbpc 
+	gcc -g ppl.c parser.c crawler.c main.c -lcurl -o wbpc 
