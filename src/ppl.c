@@ -48,4 +48,8 @@ int pplcpy(ppl* p1, ppl* p2)
 
 	p1->spsay = p2->spsay;
 	p1->spfo = p2->spfo;
+
+	p1->uid = p2->uid;
+	strcpy(p1->urlpart, p2->urlpart);
+
 }

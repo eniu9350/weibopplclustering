@@ -5,8 +5,10 @@
 #define BOOL unsigned char
 
 typedef struct htmlContent{
+	char* url[100];
 	UINT len;
 	char* content;
+	void* z;
 }htmlContent;
 
 #endif

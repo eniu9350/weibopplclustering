@@ -15,6 +15,9 @@ typedef struct ppl
 	//speed of being followed
 	UINT spfo;
 
+	//---only for convinience, not for mining---
+	UINT uid;
+	char urlpart[32];
 } ppl;
 
 typedef struct ppllist

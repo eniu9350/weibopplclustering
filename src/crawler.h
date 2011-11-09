@@ -3,6 +3,7 @@
 
 #include "wbpc.h"
 
-int crawl(char* url, htmlContent* h);
+int crawl(htmlContent* h);
 
+void crawlPpls();
 #endif
