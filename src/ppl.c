@@ -29,7 +29,7 @@ int expandPpllist(ppllist* p)
 int addPpl(ppllist* l, ppl* p)
 {
 	if(l->size==l->capacity)	{
-		if(expandPplList(l))	{
+		if(expandPpllist(l))	{
 			return -1;
 		}
 	}
