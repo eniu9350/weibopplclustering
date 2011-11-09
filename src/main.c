@@ -7,8 +7,8 @@ int main(int argc, char* argv[])
 {
 	char url[100] = "http://data.weibo.com/top/hot/famous";
 	htmlContent h;
-	ppl** ppls;
-	int nppls;
+	ppllist* ppls;
+	int i;
 
 	h.len=0;
 	h.content=(char*)malloc(1);
@@ -16,5 +16,8 @@ int main(int argc, char* argv[])
 	crawl(url, &h);
 
 	ppls = parse(&h);
-
+	printf("after parse\n");
+	for(i=0;i<ppls->size;i++)	{
+		printf("[in iteration]%s,%d\n",ppls->list[i].name, ppls->list[i].nfoer);
+	}
 }

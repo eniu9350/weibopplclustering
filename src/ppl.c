@@ -5,6 +5,7 @@ ppl* createPpl()
 {
 	ppl* p = (ppl*)malloc(sizeof(ppl));
 	//some init
+	return p;
 }
 
 ppllist* createPpllist()
