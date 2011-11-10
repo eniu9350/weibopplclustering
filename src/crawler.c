@@ -24,7 +24,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 
 	printf("in wrmem, url=%s\n",h->url);
 	h->content = (char*)realloc(h->content, h->len+realsize+1);
-//	printf("in wrmem, after realloc\n");
+	//	printf("in wrmem, after realloc\n");
 	if(h->content == NULL)
 	{
 		printf("not enough memory (realloc returned NULL)\n");
@@ -39,7 +39,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 	if(strstr(h->content, "</html>"))	{
 		printf("end of html!!!!!!!!!!!!!, url=%s\n", h->url);
 		if(strstr(h->url, "famous"))	{//index page
-	printf("famous, famous--\n");
+			printf("famous, famous--\n");
 			ppls = parseIndexPage(h);
 			printf("after parse\n");
 			for(i=0;i<ppls->size;i++)	{
@@ -55,13 +55,13 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 			}
 		}
 		else {
-	printf("personal, personal--\n");
+			printf("personal, personal--\n");
 			p=(ppl*)h->z;
 			padd = parsePersonalPage(h, p->uid);
 			//printf("pname=%s\n",p->name);
 			p->nfoing = padd->nfoing;
 			p->nsaying = padd->nsaying;
-	printf("personal, personal--end\n");
+			printf("personal, personal--end\n");
 			free(padd);
 			printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
 
@@ -69,7 +69,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 	}
 
 
-//	printf("in wrmem, url=%s end_____________\n",h->url);
+	//	printf("in wrmem, url=%s end_____________\n",h->url);
 	return realsize;
 }
 

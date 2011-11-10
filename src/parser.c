@@ -11,7 +11,7 @@
 ppl* parsePersonalPage(htmlContent* h, UINT uid)
 {	
 	//printf("content=======%s\n", h->content);
-char pattern[300] = "<em class=\"MIB_txtal\">([0-9]+)</em>.*</span><span><em class=\"MIB_txtal\">([0-9]+)</em>.*</span><span><em class=\"MIB_txtal\">([0-9]+)</em>微博</span>";
+	char pattern[300] = "<em class=\"MIB_txtal\">([0-9]+)</em>.*</span><span><em class=\"MIB_txtal\">([0-9]+)</em>.*</span><span><em class=\"MIB_txtal\">([0-9]+)</em>微博</span>";
 	regex_t reg;
 	//reg matches
 	regmatch_t regm[10];
@@ -20,43 +20,43 @@ char pattern[300] = "<em class=\"MIB_txtal\">([0-9]+)</em>.*</span><span><em cla
 	char tmp[100];
 	int tmplen;
 	char* s0;
-//printf("-----------1---\n");
+	//printf("-----------1---\n");
 	//sprintf(pattern,"<li><a href=\\\"\\\\/%d\\\\/follow\\\"><strong>([0-9]*)<\\\\/strong>[.*]<strong>([0-9]*)<\\\\/strong><span>\\\\u5fae\\\\u535a<\\\\/span>", uid);
-//	sprintf(pattern,"<strong>([0-9]*)", ')');
+	//	sprintf(pattern,"<strong>([0-9]*)", ')');
 	//char pattern[300] = "com/[A-Za-z0-9]*\" target=\"_blank\" suda-uatrack=\"key=apex_top&value=all\">([ \t\n\r]*)([^<\t\r\n]+)([ \t\n\r]*)</a>([ \t\n\r]*)</span>([ \t\n\r]*)</td>([ \t\n\r]*)<td class=\"aln_rt\"><span class=\"times_zw\">([0-9]+)</span>";
 	//char pattern[100] = "key=apex_top&value=all";
 
-//printf("-----------2---pattern=%s\n", pattern);
+	//printf("-----------2---pattern=%s\n", pattern);
 	if( (regcomp(&reg, pattern, REG_EXTENDED)) !=0 )
 	{
 		printf("could not compile regex");
 		exit(1);
 	}
 
-printf("-----------3---\n");
+	printf("-----------3---\n");
 	ret = regexec(&reg, h->content, 5, regm, 0);
 	snow = s0 = h->content;
 	//printf("reg[0]so=%d,eo=%d", regm[0].rm_so,regm[0].rm_eo);	
 	//store result
 	ppl* p = createPpl();
 
-printf("-----------4---\n");
+	printf("-----------4---\n");
 	// nfoing
 	tmplen = regm[1].rm_eo-regm[1].rm_so;
-printf("-----------tmplen=%d---\n",tmplen);
+	printf("-----------tmplen=%d---\n",tmplen);
 	memcpy(tmp, snow+regm[1].rm_so, tmplen);	
 	tmp[tmplen]='\0';	
-printf("-----------tmp=%s---\n",tmp);
+	printf("-----------tmp=%s---\n",tmp);
 	p->nfoing=atoi(tmp);
 
-printf("-----------5---\n");
+	printf("-----------5---\n");
 	//a. name
 	tmplen = regm[3].rm_eo-regm[3].rm_so;
 	memcpy(tmp, snow+regm[3].rm_so, tmplen);
 	tmp[tmplen]='\0';	
-//printf("-----------tmp=%s---\n",tmp);
+	//printf("-----------tmp=%s---\n",tmp);
 	p->nsaying=atoi(tmp);
-printf("-----------6---\n");
+	printf("-----------6---\n");
 
 	printf("break\n");
 	return p;
@@ -92,16 +92,16 @@ ppllist* parseIndexPage(htmlContent* h)
 		exit(1);
 	}
 
-printf("----1----\n");
+	printf("----1----\n");
 	ret = regexec(&reg, h->content, 15, regm, 0);
-printf("----1.5----\n");
+	printf("----1.5----\n");
 	snow = s0 = h->content;
 	while(!ret){
 		//printf("reg[0]so=%d,eo=%d", regm[0].rm_so,regm[0].rm_eo);	
 		//store result
 		ppl* p = createPpl();
 
-printf("----2----\n");
+		printf("----2----\n");
 		// uid
 		tmplen = regm[1].rm_eo-regm[1].rm_so;
 		memcpy(tmp, snow+regm[1].rm_so, tmplen);	
