@@ -22,7 +22,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 	htmlContent* hpersonal;
 
 
-	printf("in wrmem, url=%s\n",h->url);
+	//printf("in wrmem, url=%s\n",h->url);
 	h->content = (char*)realloc(h->content, h->len+realsize+1);
 	//	printf("in wrmem, after realloc\n");
 	if(h->content == NULL)
@@ -41,13 +41,13 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 		if(strstr(h->url, "famous"))	{//index page
 			printf("famous, famous--\n");
 			ppls = parseIndexPage(h);
-			printf("after parse\n");
+			//printf("after parse\n");
 			for(i=0;i<ppls->size;i++)	{
 				p = &ppls->list[i];
 				hpersonal = (htmlContent*)malloc(sizeof(htmlContent));
-				printf("urlpart=%s\n",p->urlpart);
+				//printf("urlpart=%s\n",p->urlpart);
 				sprintf(hpersonal->url, "http://weibo.com/%s", p->urlpart);
-				printf("urlpart copied=%s\n",hpersonal->url);
+				//printf("urlpart copied=%s\n",hpersonal->url);
 				hpersonal->len=0;
 				hpersonal->content=(char*)malloc(1);
 				hpersonal->z=p;
@@ -55,13 +55,13 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 			}
 		}
 		else {
-			printf("personal, personal--\n");
+			//printf("personal, personal--\n");
 			p=(ppl*)h->z;
 			padd = parsePersonalPage(h, p->uid);
 			//printf("pname=%s\n",p->name);
 			p->nfoing = padd->nfoing;
 			p->nsaying = padd->nsaying;
-			printf("personal, personal--end\n");
+			//printf("personal, personal--end\n");
 			free(padd);
 			printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
 
@@ -86,7 +86,7 @@ int crawl(htmlContent* h)
 	//chunk.size = 0;
 
 
-	printf("crawl 1, hurl=%s\n",h->url);
+	//	printf("crawl 1, hurl=%s\n",h->url);
 	//printf("crawl 2\n");
 
 	curl_global_init(CURL_GLOBAL_ALL);
