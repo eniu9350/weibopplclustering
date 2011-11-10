@@ -41,7 +41,9 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 		if(strstr(h->url, "famous"))	{//index page
 			printf("famous, famous--\n");
 			ppls = parseIndexPage(h);
+			h->z = (void*)ppls;
 			//printf("after parse\n");
+//			for(i=0;i<ppls->size;i++)	{
 			for(i=0;i<ppls->size;i++)	{
 				p = &ppls->list[i];
 				hpersonal = (htmlContent*)malloc(sizeof(htmlContent));

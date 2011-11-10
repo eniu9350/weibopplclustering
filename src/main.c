@@ -4,6 +4,7 @@
 int main(int argc, char* argv[])
 {
 	crawlPpls();
+	printf("end of main\n");
 	/*
 	   char urlpersonal[100];
 	   htmlContent h;
