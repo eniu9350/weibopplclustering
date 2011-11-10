@@ -17,6 +17,7 @@ ppllist* createPpllist()
 	return p;
 }
 
+//not tested yet!
 int expandPpllist(ppllist* p)
 {
 	if(p->capacity >= PPLLIST_CAPACITY_MAX)	{

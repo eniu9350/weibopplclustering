@@ -43,8 +43,8 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 			ppls = parseIndexPage(h);
 			h->z = (void*)ppls;
 			//printf("after parse\n");
-//			for(i=0;i<ppls->size;i++)	{
 			for(i=0;i<ppls->size;i++)	{
+//			for(i=0;i<3;i++)	{
 				p = &ppls->list[i];
 				hpersonal = (htmlContent*)malloc(sizeof(htmlContent));
 				//printf("urlpart=%s\n",p->urlpart);
@@ -65,7 +65,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 			p->nsaying = padd->nsaying;
 			//printf("personal, personal--end\n");
 			free(padd);
-			printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
+			//printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
 
 		}
 	}
@@ -120,11 +120,12 @@ int crawl(htmlContent* h)
 	return 0;
 }
 
-void crawlPpls(){
+ppllist* crawlPpls(){
 	htmlContent h;
 	h.len=0;
 	h.content=(char*)malloc(1);
 
 	strcpy(h.url, "http://data.weibo.com/top/hot/famous");
 	crawl(&h);
+	return (ppllist*)h.z;
 }

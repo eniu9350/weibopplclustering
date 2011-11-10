@@ -2,8 +2,9 @@
 #define _WBPC_CRAWLER_H_
 
 #include "wbpc.h"
+#include "ppl.h"
 
 int crawl(htmlContent* h);
 
-void crawlPpls();
+ppllist* crawlPpls();
 #endif
