@@ -1,6 +1,7 @@
 #include "ppl.h"
 
-#include "stdio.h"
+#include <stdio.h>
+#include <stdlib.h>
 ppl* createPpl()
 {
 	ppl* p = (ppl*)malloc(sizeof(ppl));
