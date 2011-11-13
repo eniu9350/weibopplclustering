@@ -23,7 +23,7 @@ typedef struct httpRequestHeader{
 
 #define AND "&"
 #define LEN_AND 1
-#define fillAnd(s) strcpy(s,AND);s+=LEN_AND:
+#define fillAnd(s) strcpy(s,AND);s+=LEN_AND;
 
 #define EQUALS "="
 #define LEN_EQUALS 1
@@ -54,7 +54,7 @@ typedef struct httpRequestHeader{
 #define LEN_AWS_NAME_ACCESSKEYID 13
 #define AWS_ACCESSKEYID "AKIAJTTNRZHW4KIPQXNA"
 #define LEN_AWS_ACCESSKEYID 20
-#define fillAccessKeyId(s) strcpy(s,AWS_NAME_ACCESSKEYID);s+=LEN_AWS_NAME_ACCESSID;fillEquals(s);strcpy(s,AWS_ACCESSKEYID);s+=LEN_AWS_ACCESSKEYID;fillLineBreak(s);
+#define fillAwsAccessKeyId(s) strcpy(s,AWS_NAME_ACCESSKEYID);s+=LEN_AWS_NAME_ACCESSKEYID;fillEquals(s);strcpy(s,AWS_ACCESSKEYID);s+=LEN_AWS_ACCESSKEYID;fillLineBreak(s);
 
 #define AWS_NAME_ACTION "Action"
 #define LEN_AWS_NAME_ACTION 6
