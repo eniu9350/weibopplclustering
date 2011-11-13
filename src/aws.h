@@ -58,7 +58,7 @@ typedef struct httpRequestHeader{
 
 #define AWS_NAME_ACTION "Action"
 #define LEN_AWS_NAME_ACTION 6
-#define fillAction(s, (a)) fillAnd(s);strcpy(s,AWS_NAME_ACTION);s+=LEN_AWS_NAME_ACTION;fillEquals(s);strcpy(s,(a));s+=strlen(a);fillLineBreak(s);
+#define fillAction(s, a) fillAnd(s);strcpy(s,AWS_NAME_ACTION);s+=LEN_AWS_NAME_ACTION;fillEquals(s);strcpy(s,(a));s+=strlen(a);fillLineBreak(s);
 
 #define AWS_NAME_SIGNATUREMETHOD "SignatureMethod"
 #define LEN_AWS_NAME_SIGNATUREMETHOD 15
@@ -83,7 +83,7 @@ typedef struct httpRequestHeader{
 #define fillVersion(s) fillAnd(s);strcpy(s,AWS_NAME_VERSION);s+=LEN_AWS_NAME_VERSION;fillEquals(s);strcpy(s,AWS_VERSION);s+=LEN_AWS_VERSION;fillLineBreak(s);
 
 //------common----------
-int getStringToSign(char* result, httpRequestMethod method, httpRequestHeader* headers, int nheaders);
+int getStringToSign(char* result, httpRequestMethod method, char* action, httpRequestHeader* headers, int nheaders);
 
 //------spec------------
 
