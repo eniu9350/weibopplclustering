@@ -73,7 +73,7 @@ typedef struct httpRequestHeader{
 #define fillSignatureVersion(s) fillAnd(s);strcpy(s,AWS_NAME_SIGNATUREVERSION);s+=LEN_AWS_NAME_SIGNATUREVERSION;fillEquals(s);strcpy(s,AWS_SIGNATUREVERSION);s+=LEN_AWS_SIGNATUREVERSION;fillLineBreak(s);
 
 #define AWS_NAME_TIMESTAMP "Timestamp"
-#define LEN_AWS_NAME_ACTION 8
+#define LEN_AWS_NAME_TIMESTAMP 8
 #define fillTimestamp(s) fillAnd(s);strcpy(s,AWS_NAME_TIMESTAMP);s+=LEN_AWS_NAME_TIMESTAMP;fillEquals(s);strcpy(s,"9");s+=1;fillLineBreak(s);	//temp!!
 
 #define AWS_NAME_VERSION "Version"
