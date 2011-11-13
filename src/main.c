@@ -2,8 +2,25 @@
 #include "crawler.h"
 #include "ppl.h"
 
+#include "aws.h"
+
 int main(int argc, char* argv[])
 {
+
+	char tosign[1000];
+	httpRequestHeader* headers;
+	headers = (httpRequestHeader*)malloc(3*sizeof(httpRequestHeader));
+	strcpy(headers[0].name, "k0");
+	strcpy(headers[0].value, "k0");
+	strcpy(headers[1].name, "k1");
+	strcpy(headers[1].value, "k1");
+	strcpy(headers[2].name, "k2");
+	strcpy(headers[2].value, "k2");
+	getStringToSign(tosign, HTTP_METHOD_GET, "ListDomain", headers, 3); 	
+	printf("tosign=%s\n", tosign);
+
+
+/*
 	ppllist* ppls;
 	int i;
 	ppl* p;
@@ -22,7 +39,7 @@ int main(int argc, char* argv[])
 		p = &ppls->list[i];
 		printf("[MAIN]uid=%d,nsaying=%d,nfoer=%d,nfoing=%d\n", p->uid, p->nsaying, p->nfoer, p->nfoing);
 	}
-
+*/
 
 	/*
 	   char urlpersonal[100];

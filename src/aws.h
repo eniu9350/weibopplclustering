@@ -1,5 +1,5 @@
-#ifndef _WBPC_PPL_H_
-#define _WBPC_PPL_H_
+#ifndef _WBPC_AWS_H_
+#define _WBPC_AWS_H_
 
 #include "wbpc.h"
 
@@ -16,6 +16,7 @@ typedef struct httpRequestHeader{
 	char name[30];
 	char value[128];
 }httpRequestHeader;
+
 
 #define LINE_BREAK "\n"
 #define LEN_LINE_BREAK 1
@@ -77,7 +78,7 @@ typedef struct httpRequestHeader{
 #define fillTimestamp(s) fillAnd(s);strcpy(s,AWS_NAME_TIMESTAMP);s+=LEN_AWS_NAME_TIMESTAMP;fillEquals(s);strcpy(s,"9");s+=1;fillLineBreak(s);	//temp!!
 
 #define AWS_NAME_VERSION "Version"
-#define LEN_AWS_NAME_VERSION 6
+#define LEN_AWS_NAME_VERSION 7
 #define AWS_VERSION "2009-04-15"
 #define LEN_AWS_VERSION 10
 #define fillVersion(s) fillAnd(s);strcpy(s,AWS_NAME_VERSION);s+=LEN_AWS_NAME_VERSION;fillEquals(s);strcpy(s,AWS_VERSION);s+=LEN_AWS_VERSION;fillLineBreak(s);
