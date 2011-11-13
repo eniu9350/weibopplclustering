@@ -23,8 +23,8 @@ int getStringToSign(char* result, httpRequestMethod method, char* action, httpRe
 
 	fillSignatureMethod(tosign);
 	fillSignatureVersion(tosign);
-
 	fillTimestamp(tosign);
+	fillVersion(tosign);
 	return 0;
 }
 
