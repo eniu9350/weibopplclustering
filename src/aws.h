@@ -41,7 +41,7 @@ typedef struct httpRequestHeader{
 	fillLineBreak(s);	\
 }	
 
-#define fillHeaderString(s, h) fillAnd(s);strcpy(s, (h)->name);s+=strlen((h)->name);fillEquals(s);strcpy(s,(h)->value);s+=strlen((h)->value);fillLineBreak(s);
+#define fillHeaderString(s, h) fillAnd(s);strcpy(s, (h)->name);s+=strlen((h)->name);fillEquals(s);strcpy(s,(h)->value);s+=strlen((h)->value);
 
 #define AWS_URL "sdb.amazonaws.com"
 #define LEN_AWS_URL 17
@@ -55,40 +55,43 @@ typedef struct httpRequestHeader{
 #define LEN_AWS_NAME_ACCESSKEYID 13
 #define AWS_ACCESSKEYID "AKIAJTTNRZHW4KIPQXNA"
 #define LEN_AWS_ACCESSKEYID 20
-#define fillAwsAccessKeyId(s) strcpy(s,AWS_NAME_ACCESSKEYID);s+=LEN_AWS_NAME_ACCESSKEYID;fillEquals(s);strcpy(s,AWS_ACCESSKEYID);s+=LEN_AWS_ACCESSKEYID;fillLineBreak(s);
+#define fillAwsAccessKeyId(s) strcpy(s,AWS_NAME_ACCESSKEYID);s+=LEN_AWS_NAME_ACCESSKEYID;fillEquals(s);strcpy(s,AWS_ACCESSKEYID);s+=LEN_AWS_ACCESSKEYID;
 
 #define AWS_NAME_ACTION "Action"
 #define LEN_AWS_NAME_ACTION 6
-#define fillAction(s, a) fillAnd(s);strcpy(s,AWS_NAME_ACTION);s+=LEN_AWS_NAME_ACTION;fillEquals(s);strcpy(s,(a));s+=strlen(a);fillLineBreak(s);
+#define fillAction(s, a) fillAnd(s);strcpy(s,AWS_NAME_ACTION);s+=LEN_AWS_NAME_ACTION;fillEquals(s);strcpy(s,(a));s+=strlen(a);
 
 #define AWS_NAME_SIGNATUREMETHOD "SignatureMethod"
 #define LEN_AWS_NAME_SIGNATUREMETHOD 15
 #define AWS_SIGNATUREMETHOD "HmacSHA256"
 #define LEN_AWS_SIGNATUREMETHOD 10
-#define fillSignatureMethod(s) fillAnd(s);strcpy(s,AWS_NAME_SIGNATUREMETHOD);s+=LEN_AWS_NAME_SIGNATUREMETHOD;fillEquals(s);strcpy(s,AWS_SIGNATUREMETHOD);s+=LEN_AWS_SIGNATUREMETHOD;fillLineBreak(s);
+#define fillSignatureMethod(s) fillAnd(s);strcpy(s,AWS_NAME_SIGNATUREMETHOD);s+=LEN_AWS_NAME_SIGNATUREMETHOD;fillEquals(s);strcpy(s,AWS_SIGNATUREMETHOD);s+=LEN_AWS_SIGNATUREMETHOD;
 
 #define AWS_NAME_SIGNATUREVERSION "SignatureVersion"
 #define LEN_AWS_NAME_SIGNATUREVERSION 16
 #define AWS_SIGNATUREVERSION "2"
 #define LEN_AWS_SIGNATUREVERSION 1
-#define fillSignatureVersion(s) fillAnd(s);strcpy(s,AWS_NAME_SIGNATUREVERSION);s+=LEN_AWS_NAME_SIGNATUREVERSION;fillEquals(s);strcpy(s,AWS_SIGNATUREVERSION);s+=LEN_AWS_SIGNATUREVERSION;fillLineBreak(s);
+#define fillSignatureVersion(s) fillAnd(s);strcpy(s,AWS_NAME_SIGNATUREVERSION);s+=LEN_AWS_NAME_SIGNATUREVERSION;fillEquals(s);strcpy(s,AWS_SIGNATUREVERSION);s+=LEN_AWS_SIGNATUREVERSION;
 
 #define AWS_NAME_TIMESTAMP "Timestamp"
-#define LEN_AWS_NAME_TIMESTAMP 8
-#define fillTimestamp(s) fillAnd(s);strcpy(s,AWS_NAME_TIMESTAMP);s+=LEN_AWS_NAME_TIMESTAMP;fillEquals(s);strcpy(s,"9");s+=1;fillLineBreak(s);	//temp!!
+#define LEN_AWS_NAME_TIMESTAMP 9
+#define fillTimestamp(s,t) fillAnd(s);strcpy(s,AWS_NAME_TIMESTAMP);s+=LEN_AWS_NAME_TIMESTAMP;fillEquals(s);strcpy(s,t);s+=strlen(t);fillLineBreak(s);	//temp!!
 
 #define AWS_NAME_VERSION "Version"
 #define LEN_AWS_NAME_VERSION 7
 #define AWS_VERSION "2009-04-15"
 #define LEN_AWS_VERSION 10
-#define fillVersion(s) fillAnd(s);strcpy(s,AWS_NAME_VERSION);s+=LEN_AWS_NAME_VERSION;fillEquals(s);strcpy(s,AWS_VERSION);s+=LEN_AWS_VERSION;fillLineBreak(s);
+#define fillVersion(s) fillAnd(s);strcpy(s,AWS_NAME_VERSION);s+=LEN_AWS_NAME_VERSION;fillEquals(s);strcpy(s,AWS_VERSION);s+=LEN_AWS_VERSION;
 
+void getGMTString(char* s);
 //------common----------
 int getStringToSign(char* result, httpRequestMethod method, char* action, httpRequestHeader* headers, int nheaders);
-
+int signString(char* tosign, char* signature);
 //------spec------------
 
 
+int getUrlString(char* result, httpRequestMethod method, char* action, httpRequestHeader* headers, int nheaders);
+int listDomain();
 int createDomain(char* dn);
 
 #endif
