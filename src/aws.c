@@ -4,18 +4,32 @@
 #include <stdlib.h>
 #include <string.h>
 
-int getStringToSign(char* result, httpRequestMethod method, httpRequestHeader* headers, int nheaders)
+int getStringToSign(char* result, httpRequestMethod method, char* action, httpRequestHeader* headers, int nheaders)
 {
+	char *tosign;
 	int i;
-	fillMethodString(result, method);
+	
+	tosign = result;
+
+	fillMethodString(tosign, method);
+	fillAwsUrl(tosign);
+	fillAwsPath(tosign);
+	fillAwsAccessKeyId(tosign);
+	fillAction(tosign, action);
+
 	for(i=0;i<nheaders;i++)	{
-		fillHeaderString(result, headers+i);
+		fillHeaderString(tosign, headers+i);
 	}
+
+	fillSignatureMethod(tosign);
+	fillSignatureVersion(tosign);
+
+	fillTimestamp(tosign);
 	return 0;
 }
 
 int createDomain(char* dn)
 {
-		
+
 }
 
