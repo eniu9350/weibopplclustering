@@ -71,7 +71,7 @@ int signString(char* tosign, char* signature)
 	char* base64str;
 	char* urlecstr;
 	CURL* curl = curl_easy_init();
-	unsigned char* key = (unsigned char*) AWS_ACCESSKEYID;
+	unsigned char* key = (unsigned char*) AWS_SECRETACCESSKEYID;
 	HMAC_CTX ctx;
 
 	hmaclen = 1000;
@@ -81,12 +81,12 @@ int signString(char* tosign, char* signature)
 	ENGINE_register_all_complete();
 
 	HMAC_CTX_init(&ctx);
-	HMAC_Init_ex(&ctx, key, 20, EVP_sha256(), NULL);
+	HMAC_Init_ex(&ctx, key, LEN_AWS_SECRETACCESSKEYID, EVP_sha1(), NULL);
 	HMAC_Update(&ctx, tosign, strlen(tosign));
 	HMAC_Final(&ctx, hmacstr, &hmaclen);
 	HMAC_CTX_cleanup(&ctx);
 
-	//printf("%s\n", hmacstr);
+	printf("hmac=%s\n", hmacstr);
 
 
 	printf("----------------base64 encoded\n");;
@@ -112,10 +112,20 @@ int getUrlString(char* result, httpRequestMethod method, char* action, httpReque
 	int i;
 
 	getStringToSign(tosign, method, action, headers, nheaders);
-		signString(tosign, signature);
+	signString(tosign, signature);
 	printf("-----------tosign=\n%s\n",tosign);
 
 	sprintf(result, "https://sdb.amazonaws.com/?Action=%s", action);
+	strcpy(result+strlen(result), "&Version=2009-04-15");
+	strcpy(result+strlen(result),"&AWSAccessKeyId=");
+	strcpy(result+strlen(result),AWS_ACCESSKEYID); 
+	strcpy(result+strlen(result),"&SignatureVersion=2");
+	strcpy(result+strlen(result),"&SignatureMethod=HmacSHA1");
+	strcpy(result+strlen(result), "&Timestamp=");
+	getGMTString(gmt);	
+	strcpy(result+strlen(result), gmt);
+	strcpy(result+strlen(result), "&Signature=");
+	strcpy(result+strlen(result), signature);
 
 	for(i=0;i<nheaders;i++)	{
 		strcpy(result+strlen(result), "&");
@@ -123,18 +133,8 @@ int getUrlString(char* result, httpRequestMethod method, char* action, httpReque
 		strcpy(result+strlen(result), "=");
 		strcpy(result+strlen(result), headers[i].value);
 	}
-	strcpy(result+strlen(result), "&Version=2009-04-15");
 
-	strcpy(result+strlen(result), "&Timestamp=");
-	getGMTString(gmt);	
-	strcpy(result+strlen(result), gmt);
 
-	strcpy(result+strlen(result), "&Signature=");
-	strcpy(result+strlen(result), signature);
-	strcpy(result+strlen(result),"&SignatureVersion=2");
-	strcpy(result+strlen(result),"&SignatureMethod=HmacSHA256");
-	strcpy(result+strlen(result),"&AWSAccessKeyId=");
-	strcpy(result+strlen(result),AWS_ACCESSKEYID); 
 }
 
 
@@ -143,23 +143,23 @@ int listDomain()
 	char tosign[1000];
 	char signature[1000];
 	char url[2000];
-/*
-	httpRequestHeader* headers;
+	/*
+	   httpRequestHeader* headers;
 
-	headers = (httpRequestHeader*)malloc(3*sizeof(httpRequestHeader));
-	strcpy(headers[0].name, "DomainName");
-	strcpy(headers[0].value, "k0");
-	strcpy(headers[1].name, "Att1");
-	strcpy(headers[1].value, "k1");
-	strcpy(headers[2].name, "Att2");
-	strcpy(headers[2].value, "k2");
-*/
-/*
-	getStringToSign(tosign, HTTP_METHOD_GET, "ListDomain", headers, 3); 	
-	printf("tosign=%s\n", tosign);
-	signString(tosign, signature);
-	printf("sign=%s\n", signature);
-*/
+	   headers = (httpRequestHeader*)malloc(3*sizeof(httpRequestHeader));
+	   strcpy(headers[0].name, "DomainName");
+	   strcpy(headers[0].value, "k0");
+	   strcpy(headers[1].name, "Att1");
+	   strcpy(headers[1].value, "k1");
+	   strcpy(headers[2].name, "Att2");
+	   strcpy(headers[2].value, "k2");
+	 */
+	/*
+	   getStringToSign(tosign, HTTP_METHOD_GET, "ListDomain", headers, 3); 	
+	   printf("tosign=%s\n", tosign);
+	   signString(tosign, signature);
+	   printf("sign=%s\n", signature);
+	 */
 
 	getUrlString(url, HTTP_METHOD_GET, "ListDomains", 0, 0); 	
 	printf("url===%s\n", url);

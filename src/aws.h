@@ -51,11 +51,14 @@ typedef struct httpRequestHeader{
 #define LEN_AWS_PATH 1
 #define fillAwsPath(s) strcpy(s,AWS_PATH);s+=LEN_AWS_PATH;fillLineBreak(s);
 
-#define AWS_NAME_ACCESSKEYID "AWSAcessKeyId"
-#define LEN_AWS_NAME_ACCESSKEYID 13
+#define AWS_NAME_ACCESSKEYID "AWSAccessKeyId"
+#define LEN_AWS_NAME_ACCESSKEYID 14
 #define AWS_ACCESSKEYID "AKIAJTTNRZHW4KIPQXNA"
 #define LEN_AWS_ACCESSKEYID 20
 #define fillAwsAccessKeyId(s) strcpy(s,AWS_NAME_ACCESSKEYID);s+=LEN_AWS_NAME_ACCESSKEYID;fillEquals(s);strcpy(s,AWS_ACCESSKEYID);s+=LEN_AWS_ACCESSKEYID;
+
+#define AWS_SECRETACCESSKEYID "tM3QlJhC9kNMArA7BQ6Y4zFCIlgCmWt3BNxBrFqD"
+#define LEN_AWS_SECRETACCESSKEYID 40
 
 #define AWS_NAME_ACTION "Action"
 #define LEN_AWS_NAME_ACTION 6
@@ -63,8 +66,8 @@ typedef struct httpRequestHeader{
 
 #define AWS_NAME_SIGNATUREMETHOD "SignatureMethod"
 #define LEN_AWS_NAME_SIGNATUREMETHOD 15
-#define AWS_SIGNATUREMETHOD "HmacSHA256"
-#define LEN_AWS_SIGNATUREMETHOD 10
+#define AWS_SIGNATUREMETHOD "HmacSHA1"
+#define LEN_AWS_SIGNATUREMETHOD 8
 #define fillSignatureMethod(s) fillAnd(s);strcpy(s,AWS_NAME_SIGNATUREMETHOD);s+=LEN_AWS_NAME_SIGNATUREMETHOD;fillEquals(s);strcpy(s,AWS_SIGNATUREMETHOD);s+=LEN_AWS_SIGNATUREMETHOD;
 
 #define AWS_NAME_SIGNATUREVERSION "SignatureVersion"
@@ -75,7 +78,7 @@ typedef struct httpRequestHeader{
 
 #define AWS_NAME_TIMESTAMP "Timestamp"
 #define LEN_AWS_NAME_TIMESTAMP 9
-#define fillTimestamp(s,t) fillAnd(s);strcpy(s,AWS_NAME_TIMESTAMP);s+=LEN_AWS_NAME_TIMESTAMP;fillEquals(s);strcpy(s,t);s+=strlen(t);fillLineBreak(s);	//temp!!
+#define fillTimestamp(s,t) fillAnd(s);strcpy(s,AWS_NAME_TIMESTAMP);s+=LEN_AWS_NAME_TIMESTAMP;fillEquals(s);strcpy(s,t);s+=strlen(t);	//temp!!
 
 #define AWS_NAME_VERSION "Version"
 #define LEN_AWS_NAME_VERSION 7
