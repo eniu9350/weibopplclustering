@@ -3,12 +3,17 @@
 
 #include "wbpc.h"
 
+#include <time.h>
+
 typedef struct ppl
 {
 	char name[32];
 	UINT nsaying;
 	UINT nfoer;
 	UINT nfoing;
+
+	//timestamp
+	time_t ts;
 
 	//speed of saying
 	UINT spsay;
@@ -18,6 +23,7 @@ typedef struct ppl
 	//---only for convinience, not for mining---
 	UINT uid;
 	char urlpart[32];
+	
 } ppl;
 
 typedef struct ppllist

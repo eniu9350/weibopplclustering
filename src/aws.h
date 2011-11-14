@@ -86,6 +86,11 @@ typedef struct httpRequestHeader{
 #define LEN_AWS_VERSION 10
 #define fillVersion(s) fillAnd(s);strcpy(s,AWS_NAME_VERSION);s+=LEN_AWS_NAME_VERSION;fillEquals(s);strcpy(s,AWS_VERSION);s+=LEN_AWS_VERSION;
 
+#define AWS_API_SDB_NAME_PUTATTRIBUTE "PutAttributes"
+
+
+#define AWS_API_KEY_SEPARATOR ":"
+
 void getGMTString(char* s);
 //------common----------
 int getStringToSign(char* result, httpRequestMethod method, char* action, httpRequestHeader* headers, int nheaders);
