@@ -4,10 +4,16 @@
 #include <time.h>
 
 
+static size_t cbPutAttributes(void* contents, size_t size, size_t nmemb, void* userp)
+{
+	
+}
+
 int insertPplState(ppl* p)
 {
 	char url[1000];
 	int len_headers=6;
+	htmlContent* j;
 	httpRequestHeader* headers = (httpRequestHeader*)malloc(len_headers*sizeof(httpRequestHeader));
 	strcat(headers[0].name, "ItemName");
 	sprintf(headers[0].value,"%d%c%ld",p->uid, AWS_API_KEY_SEPARATOR, p->ts);
@@ -23,6 +29,8 @@ int insertPplState(ppl* p)
 	strcpy(headers[5].value, "weibopplclustering");
 	//strcpy(headers[4].value, p->nsaying);
 	getUrlString(url, HTTP_METHOD_GET, AWS_API_SDB_NAME_PUTATTRIBUTE, headers, len_headers);
-	printf("insertpplstate url=\n%s\n", url);	
+	h = createHtmlContent();
+//	httpGet(url, cbPutAttributes, 
+//	printf("insertpplstate url=\n%s\n", url);	
 }
 

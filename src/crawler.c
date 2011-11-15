@@ -35,7 +35,6 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 	h->len += realsize;
 	h->content[h->len] = 0;
 
-
 	if(strstr(h->content, "</html>"))	{
 		printf("end of html!!!!!!!!!!!!!, url=%s\n", h->url);
 		if(strstr(h->url, "famous"))	{//index page
