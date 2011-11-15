@@ -89,7 +89,7 @@ typedef struct httpRequestHeader{
 #define AWS_API_SDB_NAME_PUTATTRIBUTE "PutAttributes"
 
 
-#define AWS_API_KEY_SEPARATOR ":"
+#define AWS_API_KEY_SEPARATOR '-'
 
 void getGMTString(char* s);
 //------common----------

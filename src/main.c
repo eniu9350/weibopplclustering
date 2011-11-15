@@ -3,6 +3,7 @@
 #include "ppl.h"
 
 #include "aws.h"
+#include "persistence.h"
 
 #include "time.h"
 #include "b64.h"
@@ -55,6 +56,19 @@ int _getStringToSign(char* result, httpRequestMethod method, char* action, httpR
 
 }
 
+
+int main(int argc, char* argv[])
+{
+	time_t ltime;
+	time(&ltime);
+	ppl* p = createPpl();
+	p->uid = 1231111;
+	p->nfoer = 1000;
+	p->nsaying = 17;
+	p->ts = ltime;
+	insertPplState(p);
+}
+
 int main2(int argc, char* argv[])
 {
 	char* tosign[1000];
@@ -66,7 +80,7 @@ int main2(int argc, char* argv[])
 	printf("test signature=%s\n", signature);
 
 }
-int main(int argc, char* argv[])
+int main1(int argc, char* argv[])
 {
 
 	httpRequestHeader* headers;

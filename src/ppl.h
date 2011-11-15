@@ -37,4 +37,9 @@ typedef struct ppllist
 #define PPLLIST_CAPACITY_INC 50
 #define PPLLIST_CAPACITY_MAX 8000
 
+ppl* createPpl();
+ppllist* createPpllist();
+int expandPpllist(ppllist* p);
+int addPpl(ppllist* l, ppl* p);
+int pplcpy(ppl* p1, ppl* p2);
 #endif
