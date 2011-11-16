@@ -39,13 +39,16 @@ static size_t cbPutAttributes(void* contents, size_t size, size_t nmemb, void* u
 //0:success, 1:error reply, -1:not completed
 int insertPplState(ppl* p)
 {
+	
 	char url[1000];
 	int len_headers=6;
 	htmlContent* h;
 	int result;
 
+	printf("inserting ppl state...\n");
+
 	httpRequestHeader* headers = (httpRequestHeader*)malloc(len_headers*sizeof(httpRequestHeader));
-	strcat(headers[0].name, "ItemName");
+	strcpy(headers[0].name, "ItemName");
 	sprintf(headers[0].value,"%d%c%ld",p->uid, AWS_API_KEY_SEPARATOR, p->ts);
 	strcpy(headers[1].name, "Attribute.1.Name");
 	strcpy(headers[1].value, "nfoer");
