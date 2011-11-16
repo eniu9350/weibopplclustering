@@ -1,13 +1,15 @@
+
 #include "pplstattask.h"
 
 #include <time.h>
 #include "crawler.h"
+#include "ppl.h"
+
+extern ppllist* ppls;
 
 int savePplStat(int interval)
 {
 	//get ppl list from sdb
-	
-	ppllist* ppls;
 	ppl* p;
 	int i;
 	time_t ltime;

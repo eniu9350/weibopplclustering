@@ -56,14 +56,14 @@ int _getStringToSign(char* result, httpRequestMethod method, char* action, httpR
 
 }
 
-ppls* ppls;
+ppllist* ppls;
 
 int main(int argc, char* argv[])
 {
-	ppllist* ppls;
+	//ppllist* ppls;
 	int i;
 	ppl* p;
-
+/*
 	htmlContent h;
 
 	h.len=0;
@@ -71,13 +71,16 @@ int main(int argc, char* argv[])
 	strcpy(h.url, "http://data.weibo.com/top/ajax/hot?page=5&class=0001&depart=0001&_t=0&__rnd=1320929132670");
 	crawl(&h);
 	printf("new crawl,result=%s\n", h.content);
-
+*/
 	ppls = crawlPpls();
-	printf("end of main, ppls size=%d\n", ppls->size);
+	printf("-----------end of main---------------, ppls size=%d\n", ppls->size);
+	//just for debug
 	for(i=0;i<ppls->size;i++)	{
 		p = &ppls->list[i];
 		printf("[MAIN]uid=%d,nsaying=%d,nfoer=%d,nfoing=%d\n", p->uid, p->nsaying, p->nfoer, p->nfoing);
 	}
+	//store
+	savePplStat(30);
 }
 int main3(int argc, char* argv[])
 {

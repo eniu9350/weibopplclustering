@@ -35,9 +35,11 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 	h->content[h->len] = 0;
 
 	if(strstr(h->content, "</html>"))	{
-		printf("end of html!!!!!!!!!!!!!, url=%s\n", h->url);
+//		printf("end of html!!!!!!!!!!!!!, url=%s\n", h->url);
+		/*
 		if(strstr(h->url, "famous"))	{//index page
-			printf("famous, famous--\n");
+		*/
+//			printf("famous, famous--\n");
 			ppls = parseIndexPage(h); h->z = (void*)ppls; //printf("after parse\n");
 			for(i=0;i<ppls->size;i++)	{
 				p = &ppls->list[i];
@@ -50,6 +52,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 				hpersonal->z=p;
 				crawl(hpersonal);
 			}
+			/*
 		}
 		else if(strstr(h->url, "ajax")) {
 		}else{
@@ -63,6 +66,7 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 			free(padd);
 			//printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
 		}
+		*/
 	}
 
 
