@@ -2,7 +2,7 @@
 
 #include "aws.h"
 #include <time.h>
-
+#include "httputil.h"
 
 static size_t cbPutAttributes(void* contents, size_t size, size_t nmemb, void* userp)
 {
@@ -13,7 +13,7 @@ int insertPplState(ppl* p)
 {
 	char url[1000];
 	int len_headers=6;
-	htmlContent* j;
+	htmlContent* h;
 	httpRequestHeader* headers = (httpRequestHeader*)malloc(len_headers*sizeof(httpRequestHeader));
 	strcat(headers[0].name, "ItemName");
 	sprintf(headers[0].value,"%d%c%ld",p->uid, AWS_API_KEY_SEPARATOR, p->ts);
@@ -31,6 +31,6 @@ int insertPplState(ppl* p)
 	getUrlString(url, HTTP_METHOD_GET, AWS_API_SDB_NAME_PUTATTRIBUTE, headers, len_headers);
 	h = createHtmlContent();
 //	httpGet(url, cbPutAttributes, 
-//	printf("insertpplstate url=\n%s\n", url);	
+	printf("insertpplstate url=\n%s\n", url);	
 }
 
