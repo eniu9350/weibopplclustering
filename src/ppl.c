@@ -53,5 +53,4 @@ int pplcpy(ppl* p1, ppl* p2)
 
 	p1->uid = p2->uid;
 	strcpy(p1->urlpart, p2->urlpart);
-
 }

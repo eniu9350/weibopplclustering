@@ -1,8 +1,8 @@
 #include "wbpc.h"
 
 #include "crawler.h"
-
 #include "ppl.h"
+#include "httputil.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +21,6 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 	//char urlpersonal[100];
 	htmlContent* hpersonal;
 
-
 	//printf("in wrmem, url=%s\n",h->url);
 	h->content = (char*)realloc(h->content, h->len+realsize+1);
 	//	printf("in wrmem, after realloc\n");
@@ -39,11 +38,8 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 		printf("end of html!!!!!!!!!!!!!, url=%s\n", h->url);
 		if(strstr(h->url, "famous"))	{//index page
 			printf("famous, famous--\n");
-			ppls = parseIndexPage(h);
-			h->z = (void*)ppls;
-			//printf("after parse\n");
+			ppls = parseIndexPage(h); h->z = (void*)ppls; //printf("after parse\n");
 			for(i=0;i<ppls->size;i++)	{
-				//			for(i=0;i<3;i++)	{
 				p = &ppls->list[i];
 				hpersonal = (htmlContent*)malloc(sizeof(htmlContent));
 				//printf("urlpart=%s\n",p->urlpart);
@@ -54,77 +50,123 @@ static size_t WriteMemoryCallBack(void* contents, size_t size, size_t nmemb, voi
 				hpersonal->z=p;
 				crawl(hpersonal);
 			}
-			}
-			else if(strstr(h->url, "ajax")) {
-			}else{
-				//printf("personal, personal--\n");
-				p=(ppl*)h->z;
-				padd = parsePersonalPage(h, p->uid);
-				//printf("pname=%s\n",p->name);
-				p->nfoing = padd->nfoing;
-				p->nsaying = padd->nsaying;
-				//printf("personal, personal--end\n");
-				free(padd);
-				//printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
-			}
 		}
-
-
-		//	printf("in wrmem, url=%s end_____________\n",h->url);
-		return realsize;
+		else if(strstr(h->url, "ajax")) {
+		}else{
+			//printf("personal, personal--\n");
+			p=(ppl*)h->z;
+			padd = parsePersonalPage(h, p->uid);
+			//printf("pname=%s\n",p->name);
+			p->nfoing = padd->nfoing;
+			p->nsaying = padd->nsaying;
+			//printf("personal, personal--end\n");
+			free(padd);
+			//printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
+		}
 	}
 
-	int crawl(htmlContent* h)
+
+	//	printf("in wrmem, url=%s end_____________\n",h->url);
+	return realsize;
+}
+
+int crawl(htmlContent* h) {
+
+	CURL* curl;
+
+	//temp
+	char* strDisplay;
+
+	//struct MemoryStruct chunk;
+	//chunk.memory = malloc(1);
+	//chunk.size = 0;
+
+
+	//	printf("crawl 1, hurl=%s\n",h->url);
+	//printf("crawl 2\n");
+
+	curl_global_init(CURL_GLOBAL_ALL);
+	curl = curl_easy_init();
+	curl_easy_setopt(curl, CURLOPT_URL, h->url);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallBack);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)h);
+	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+	//printf("crawl 3\n");
+	if(curl)
 	{
+		curl_easy_perform(curl);
+		curl_easy_cleanup(curl);
+	}
+	printf("%lu bytes retrieved\n", (long)h->len);
 
-		CURL* curl;
+	//just for display
+	//strDisplay = (char*)malloc(111201);
+	//memcpy(strDisplay, h->content, 111200);
+	//strDisplay[111200] = '\0';
+	//printf("\nincrawl, content=%s\n", strDisplay);
 
-		//temp
-		char* strDisplay;
+	//if(h->content)
+	//{
+	//   free(h->content);
+	//}
 
-		//struct MemoryStruct chunk;
-		//chunk.memory = malloc(1);
-		//chunk.size = 0;
+	curl_global_cleanup();
+	return 0;
+}
 
 
-		//	printf("crawl 1, hurl=%s\n",h->url);
-		//printf("crawl 2\n");
 
-		curl_global_init(CURL_GLOBAL_ALL);
-		curl = curl_easy_init();
-		curl_easy_setopt(curl, CURLOPT_URL, h->url);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallBack);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)h);
-		curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
-		//printf("crawl 3\n");
-		if(curl)
-		{
-			curl_easy_perform(curl);
-			curl_easy_cleanup(curl);
-		}
-		printf("%lu bytes retrieved\n", (long)h->len);
+static size_t cbCrawlPpl(void* contents, size_t size, size_t nmemb, void* userp)
+{
 
-		//just for display
-		//strDisplay = (char*)malloc(111201);
-		//memcpy(strDisplay, h->content, 111200);
-		//strDisplay[111200] = '\0';
-		//printf("\nincrawl, content=%s\n", strDisplay);
+	size_t realsize = size * nmemb;
+	htmlContent* h = (htmlContent*)userp;
+	ppl* p;
+	ppl* ptemp;
 
-		//if(h->content)
-		//{
-		//   free(h->content);
-		//}
-
-		curl_global_cleanup();
-		return 0;
+	//printf("in wrmem, url=%s\n",h->url);
+	h->content = (char*)realloc(h->content, h->len+realsize+1);
+	//	printf("in wrmem, after realloc\n");
+	if(h->content == NULL)
+	{
+		printf("not enough memory (realloc returned NULL)\n");
+		exit(EXIT_FAILURE);
 	}
 
-	ppllist* crawlPpls(){
-		htmlContent h;
-		h.len=0;
-		h.content=(char*)malloc(1);
+	memcpy(&(h->content[h->len]), contents, realsize);
+	h->len += realsize;
+	h->content[h->len] = 0;
 
-		strcpy(h.url, "http://data.weibo.com/top/hot/famous");
-		crawl(&h);
-		return (ppllist*)h.z;
+	if(strstr(h->content, "</html>"))	{
+		//printf("personal, personal--\n");
+		p=(ppl*)h->z;
+		ptemp = parsePersonalPage(h, p->uid);
+		//printf("pname=%s\n",p->name);
+		p->nfoing = ptemp->nfoing;
+		p->nsaying = ptemp->nsaying;
+		//printf("personal, personal--end\n");
+		free(ptemp);
+		//printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
+
 	}
+}
+
+//crawl ppl stat and save in what p point to
+//p: point to ppl struct that only contains uid and urlpart
+int crawlPpl(ppl* p)
+{
+	htmlContent* h = createHtmlContent();
+	sprintf(h->url, "http://weibo.com/%s", p->urlpart);
+	h->z = (void*)p;
+	httpGet(h->url, cbCrawlPpl, h);
+}
+
+ppllist* crawlPpls(){
+	htmlContent h;
+	h.len=0;
+	h.content=(char*)malloc(1);
+
+	strcpy(h.url, "http://data.weibo.com/top/hot/famous");
+	crawl(&h);
+	return (ppllist*)h.z;
+}

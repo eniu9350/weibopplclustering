@@ -56,7 +56,7 @@ int _getStringToSign(char* result, httpRequestMethod method, char* action, httpR
 
 }
 
-int main(int argc, char* argv[])
+int main4(int argc, char* argv[])
 {
 	ppllist* ppls;
 	int i;
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 		printf("[MAIN]uid=%d,nsaying=%d,nfoer=%d,nfoing=%d\n", p->uid, p->nsaying, p->nfoer, p->nfoing);
 	}
 }
-int main3(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	time_t ltime;
 	time(&ltime);
