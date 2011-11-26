@@ -75,10 +75,12 @@ int main(int argc, char* argv[])
 	ppls = crawlPpls();
 	printf("-----------end of main---------------, ppls size=%d\n", ppls->size);
 	//just for debug
+	/*
 	for(i=0;i<ppls->size;i++)	{
 		p = &ppls->list[i];
 		printf("[MAIN]uid=%d,nsaying=%d,nfoer=%d,nfoing=%d\n", p->uid, p->nsaying, p->nfoer, p->nfoing);
 	}
+	*/
 	//store
 	savePplStat(30);
 }

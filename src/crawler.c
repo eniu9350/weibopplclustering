@@ -122,6 +122,7 @@ int crawl(htmlContent* h) {
 
 static size_t cbCrawlPpl(void* contents, size_t size, size_t nmemb, void* userp)
 {
+	printf("in cbcrawlpplllllllllllllllllllll\n");
 
 	size_t realsize = size * nmemb;
 	htmlContent* h = (htmlContent*)userp;
@@ -130,7 +131,7 @@ static size_t cbCrawlPpl(void* contents, size_t size, size_t nmemb, void* userp)
 
 	//printf("in wrmem, url=%s\n",h->url);
 	h->content = (char*)realloc(h->content, h->len+realsize+1);
-	//	printf("in wrmem, after realloc\n");
+		printf("in wrmem, after realloc, h->content=%d\n", h->content);
 	if(h->content == NULL)
 	{
 		printf("not enough memory (realloc returned NULL)\n");
@@ -142,17 +143,19 @@ static size_t cbCrawlPpl(void* contents, size_t size, size_t nmemb, void* userp)
 	h->content[h->len] = 0;
 
 	if(strstr(h->content, "</html>"))	{
-		//printf("personal, personal--\n");
+		printf("personal, personal--\n");
 		p=(ppl*)h->z;
 		ptemp = parsePersonalPage(h, p->uid);
-		//printf("pname=%s\n",p->name);
+		printf("pname=%s\n",p->name);
 		p->nfoing = ptemp->nfoing;
 		p->nsaying = ptemp->nsaying;
-		//printf("personal, personal--end\n");
+		printf("personal, personal--end\n");
 		free(ptemp);
 		//printf("[in iteration]%s,foer=%d, foing%d, uid=%d,nsaying=%d,urlpart=%s\n",p->name, p->nfoer,p->nfoing, p->uid,p->nsaying,p->urlpart);
 
 	}
+
+	printf("crawlppl:content=======================================================\n%s\n", h->content);
 }
 
 //crawl ppl stat and save in what p point to
@@ -161,6 +164,7 @@ int crawlPpl(ppl* p)
 {
 	htmlContent* h = createHtmlContent();
 	sprintf(h->url, "http://weibo.com/%s", p->urlpart);
+	printf("urlcrawlppl=%s\n", h->url);
 	h->z = (void*)p;
 	httpGet(h->url, cbCrawlPpl, h);
 }

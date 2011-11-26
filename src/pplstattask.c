@@ -18,7 +18,9 @@ int savePplStat(int interval)
 	for(i=0;i<ppls->size;i++)	{
 		crawlPpl(ppls->list+i);
 	}
-	
+
+	printf("----------------------crawlpplended!\n");
+/*	
 	//get time and save
 	time(&ltime);
 	for(i=0;i<ppls->size;i++)	{
@@ -26,5 +28,6 @@ int savePplStat(int interval)
 		p->ts = ltime;
 		insertPplState(ppls->list+i);	
 	}
+	*/
 }
 
