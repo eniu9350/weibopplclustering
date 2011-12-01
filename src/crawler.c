@@ -169,6 +169,7 @@ int crawlPpl(ppl* p)
 	httpGet(h->url, cbCrawlPpl, h);
 }
 
+/*
 ppllist* crawlPpls(){
 	htmlContent h;
 	h.len=0;
@@ -177,4 +178,16 @@ ppllist* crawlPpls(){
 	strcpy(h.url, "http://data.weibo.com/top/hot/famous");
 	crawl(&h);
 	return (ppllist*)h.z;
+}
+*/
+ppllist* crawlPpls(ppl* p, int n){
+	htmlContent h;
+	h.len=0;
+	h.content=(char*)malloc(1);
+
+	strcpy(h.url, "http://data.weibo.com/top/hot/famous");
+	crawl(&h);
+	return (ppllist*)h.z;
+	
+
 }
